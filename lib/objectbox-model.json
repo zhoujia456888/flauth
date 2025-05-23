@@ -1,0 +1,72 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:8599485004592482975",
+      "lastPropertyId": "9:4066727812363617999",
+      "name": "TotpModel",
+      "properties": [
+        {
+          "id": "1:2777710503610864943",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5349102337987176663",
+          "name": "issuer",
+          "type": 9
+        },
+        {
+          "id": "3:7489863144662593503",
+          "name": "userName",
+          "type": 9
+        },
+        {
+          "id": "4:5892496739034583907",
+          "name": "secret",
+          "type": 9
+        },
+        {
+          "id": "5:5881787188643552453",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "6:4801064722367049470",
+          "name": "isShow",
+          "type": 1
+        },
+        {
+          "id": "7:3337977237369376304",
+          "name": "iconPath",
+          "type": 9
+        },
+        {
+          "id": "8:5042624379654589406",
+          "name": "countdownTime",
+          "type": 8
+        },
+        {
+          "id": "9:4066727812363617999",
+          "name": "initialTime",
+          "type": 8
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:8599485004592482975",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

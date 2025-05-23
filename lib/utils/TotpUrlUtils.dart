@@ -1,4 +1,7 @@
-import 'package:flutter/animation.dart';
+
+import 'package:get/get.dart';
+
+import '../model/totp_model/totp_model.dart';
 
 class TotpUrlUtils {
   /// 生成TOTP URL
@@ -6,33 +9,39 @@ class TotpUrlUtils {
     return 'otpauth://totp/$issuer:$userName?secret=$secret&issuer=$issuer';
   }
 
-  static List splitTotp(String totpContents) {
-    var totpMap = {"issuer": "", "userName": "", "secret": "", "iconPath": "", "initialTime": 30};
-    var totpUrlList=  totpContents.split("\n");
-    if  (totpUrlList.isEmpty) {
+  static List<TotpModel> splitTotp(String totpContents) {
+    var totpUrlList = totpContents.split("\n");
+    if (totpUrlList.isEmpty) {
       return [];
     }
-    var totpMapList  = [];
+    List<TotpModel> totpMapList = [];
     for (var totpUrl in totpUrlList) {
       if (totpUrl.startsWith("otpauth://totp/")) {
-        var split = totpUrl.split("/");
-        totpMap["issuer"] = split[2].split(":")[0];
-        totpMap["userName"] = split[2].split(":")[1];
-        totpMap["secret"] = split[3].split("?")[0];
-        if (split[3].split("?").length > 1) {
-          var params = split[3].split("?")[1].split("&");
-          for (var param in params) {
-            if (param.startsWith("issuer=")) {
-              totpMap["issuer"] = param.split("=")[1];
-            } else if (param.startsWith("secret=")) {
-              totpMap["secret"] = param.split("=")[1];
-            } else if (param.startsWith("initialTime=")) {
-              totpMap["initialTime"] = int.parse(param.split("=")[1]);
-            }
-          }
+        if (totpUrl.contains("%")) {
+          totpUrl = Uri.decodeFull(totpUrl);
         }
-        totpMapList.add(totpMap);
-      }else{
+        var split = totpUrl.split("otpauth://totp/");
+        final queryString = split.length > 1 ? split[1] : '';
+        final issuerMatch = RegExp(r'issuer=([^&]+)').firstMatch(queryString);
+        final userNameMatch = RegExp(r':([^:?]+)').firstMatch(queryString);
+        final secretMatch = RegExp(r'\?secret=([^&]+)').firstMatch(queryString);
+
+        String issuer = issuerMatch?.group(1) ?? '';
+        String userName = userNameMatch?.group(1) ?? '';
+        String secret = secretMatch?.group(1) ?? '';
+
+        TotpModel totpModel = TotpModel(
+          issuer: issuer,
+          userName: userName,
+          secret: secret,
+          code: '',
+          isShow: false,
+          iconPath:null,
+          initialTime: 30,
+          countdownTime: 30, id: null,
+        );
+        totpMapList.add(totpModel);
+      } else {
 
       }
     }

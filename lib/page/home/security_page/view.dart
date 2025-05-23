@@ -1,9 +1,13 @@
-import 'package:FlAuth/config/get_pages.dart';
+import 'dart:io';
+
+import 'package:FlAuth/model/totp_model/totp_model.dart';
+import 'package:FlAuth/utils/TotpIconUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-
+import 'package:flutter/services.dart';
+import '../../../main.dart' show logger;
 import 'logic.dart';
 
 class SecurityPage extends StatelessWidget {
@@ -28,38 +32,53 @@ class SecurityPage extends StatelessWidget {
       body: Obx(
         () => ListView.custom(
           childrenDelegate: SliverChildBuilderDelegate((context, index) {
-            final model = logic.codeList[index];
+            Rx<TotpModel> model = logic.codeList[index];
             return Card(
               elevation: 0,
               margin: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-              child: Container(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        SizedBox(width: 35, height: 35, child: SvgPicture.asset(model.iconPath!)),
-                        SizedBox(width: 10),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [Text(model.issuer!), Text(model.userName!)],
+              child: InkWell(
+                borderRadius: BorderRadius.circular(10),
+                onTap: () {
+                  if (model.value.isShow ?? false) {
+                    Clipboard.setData(ClipboardData(text: model.value.code!));
+                    SmartDialog.showToast("安全码已复制到粘贴板");
+                    model(model.value.copyWith(isShow: false));
+                  } else {
+                    model(model.value.copyWith(isShow: true));
+                  }
+                },
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(width: 35, height: 35, child: creatTotpIcon(model)),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [Text(model.value.issuer!), Text(model.value.userName!)],
+                            ),
                           ),
-                        ),
-                        Text(model.code ?? "--"),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: LinearProgressIndicator(value: model.countdownTime, borderRadius: BorderRadius.circular(10)),
-                        ),
-                        SizedBox(width: 10),
-                        SizedBox(width: 20, child: Text("${((model.countdownTime ?? 0) * (model.initialTime ?? 0)).toInt()}")),
-                      ],
-                    ),
-                  ],
+                          Text((model.value.isShow ?? true) ? "${model.value.code}" : "".padLeft((model.value.code ?? "").length, "-")),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: LinearProgressIndicator(value: model.value.countdownTime, borderRadius: BorderRadius.circular(10)),
+                          ),
+                          SizedBox(width: 10),
+                          SizedBox(
+                            width: 20,
+                            child: Text("${((model.value.countdownTime ?? 0) * (model.value.initialTime ?? 0)).toInt()}"),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
@@ -75,6 +94,19 @@ class SecurityPage extends StatelessWidget {
     );
   }
 
+  creatTotpIcon(Rx<TotpModel> totpModel) async {
+    String iconPath = TotpIconUtils.getIconPath(totpModel.value.issuer!)!;
+    var byteData = await rootBundle.load(iconPath);
+    if (byteData.lengthInBytes != 0) {
+      return SvgPicture.asset(iconPath);
+    } else if (totpModel.value.iconPath != null) {
+      return Image.file(File(totpModel.value.iconPath!));
+    } else {
+      return Icon(Icons.person_outline);
+    }
+  }
+
+  //添加totp
   showAddDialog() {
     SmartDialog.show(
       builder: (context) {
@@ -116,8 +148,8 @@ class SecurityPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                onTap: () {
-                  SmartDialog.dismiss().then(logic.filePicker());
+                onTap: () async {
+                  SmartDialog.dismiss().then(await logic.filePicker());
                 },
               ),
             ],

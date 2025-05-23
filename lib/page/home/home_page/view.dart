@@ -1,8 +1,6 @@
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../config/get_pages.dart';
 import 'logic.dart';
 
 class HomePage extends StatelessWidget {

@@ -37,6 +37,18 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+
+    configurations{
+        debugImplementation{
+            exclude(group = "io.objectbox", module = "objectbox-android")
+        }
+    }
+
+    val objectboxVersion by extra("4.3.0")
+
+    dependencies{
+        debugImplementation("io.objectbox:objectbox-android-objectbrowser:$objectboxVersion")
+    }
 }
 
 flutter {

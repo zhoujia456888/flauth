@@ -4,6 +4,8 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   file_selector_windows
+  local_auth_windows
+  objectbox_flutter_libs
   permission_handler_windows
 )
 

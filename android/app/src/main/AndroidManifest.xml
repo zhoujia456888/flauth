@@ -1,4 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Required to provide the web interface -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Required to run keep-alive service when targeting API 28 or higher -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <!-- When targeting API level 33 or higher to post the initial Admin notification -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
     <application
         android:label="FlAuth"
         android:name="${applicationName}"

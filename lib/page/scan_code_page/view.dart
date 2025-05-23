@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
-import '../../config/get_pages.dart';
 import 'logic.dart';
 
 class ScanCodePage extends StatelessWidget {
