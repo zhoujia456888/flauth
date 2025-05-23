@@ -10,6 +10,7 @@ class TotpModel {
   String? code;
   bool? isShow;
   String? iconPath;
+  bool? canLoadAssets;
   double? countdownTime;
   double? initialTime;
 
@@ -23,6 +24,7 @@ class TotpModel {
     this.iconPath,
     this.countdownTime,
     this.initialTime,
+    this.canLoadAssets,
   });
 
   factory TotpModel.fromJson(Map<String, dynamic> json) => TotpModel(
@@ -35,6 +37,7 @@ class TotpModel {
     iconPath: json["iconPath"],
     countdownTime: json["countdownTime"],
     initialTime: json["initialTime"],
+    canLoadAssets: json["canLoadAssets"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -47,6 +50,7 @@ class TotpModel {
     "iconPath": iconPath,
     "countdownTime": countdownTime,
     "initialTime": initialTime,
+    "canLoadAssets": canLoadAssets,
   };
 
   TotpModel? copyWith({
@@ -59,6 +63,7 @@ class TotpModel {
     String? iconPath,
     double? countdownTime,
     double? initialTime,
+    bool? canLoadAssets,
   }) {
     return TotpModel(
       id: id ?? this.id,
@@ -70,6 +75,7 @@ class TotpModel {
       iconPath: iconPath ?? this.iconPath,
       countdownTime: countdownTime ?? this.countdownTime,
       initialTime: initialTime ?? this.initialTime,
+      canLoadAssets: canLoadAssets ?? this.canLoadAssets,
     );
   }
 }

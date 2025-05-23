@@ -94,10 +94,9 @@ class SecurityPage extends StatelessWidget {
     );
   }
 
-  creatTotpIcon(Rx<TotpModel> totpModel) async {
-    String iconPath = TotpIconUtils.getIconPath(totpModel.value.issuer!)!;
-    var byteData = await rootBundle.load(iconPath);
-    if (byteData.lengthInBytes != 0) {
+  Widget creatTotpIcon(Rx<TotpModel> totpModel) {
+    String? iconPath = TotpIconUtils.getIconPath(totpModel.value.issuer!);
+    if (iconPath != null) {
       return SvgPicture.asset(iconPath);
     } else if (totpModel.value.iconPath != null) {
       return Image.file(File(totpModel.value.iconPath!));
