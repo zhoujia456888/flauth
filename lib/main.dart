@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'config/get_pages.dart';
 import 'objectBox/objectBox.dart';
@@ -12,16 +13,22 @@ import 'objectBox/objectBox.dart';
 var logger = Logger(printer: PrettyPrinter());
 late ObjectBox objectbox;
 late Admin admin;
-late Store store;
+
+late final SharedPreferences spUtil;
+
+late bool isDarkMode;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  spUtil = await SharedPreferences.getInstance();
 
   objectbox = await ObjectBox.create();
-  store = await openStore();
+
   if (Admin.isAvailable()) {
-    admin = Admin(store);
+    admin = Admin(objectbox.store);
   }
+
+  isDarkMode = spUtil.getBool("isDarkMode") ?? false;
 
   runApp(const MyApp());
 }
@@ -36,7 +43,7 @@ class MyApp extends StatelessWidget {
       home: HomePage(),
       theme: FlexThemeData.light(),
       darkTheme: FlexThemeData.dark(),
-      themeMode: ThemeMode.system,
+      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.system,
       initialRoute: '/',
       getPages: GetPages.routes,
       navigatorObservers: [FlutterSmartDialog.observer],

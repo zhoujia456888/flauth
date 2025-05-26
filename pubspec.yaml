@@ -34,35 +34,40 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
-  #https://pub.dev/packages/flex_color_scheme
+  #主题 https://pub.dev/packages/flex_color_scheme
   flex_color_scheme: ^8.2.0
   #https://github.com/jonataslaw/getx/blob/master/README.zh-cn.md#getx%E7%9A%84%E8%AE%A1%E6%95%B0%E5%99%A8%E7%A4%BA%E4%BE%8B
   get: ^4.7.2
   get_storage: ^2.1.1
-  #https://pub.dev/packages/auth_totp
+  # totp验证 https://pub.dev/packages/auth_totp
   auth_totp: ^1.0.1
   #https://pub.dev/packages/steam_totp
   steam_totp: ^0.0.3
-  # https://pub.dev/packages/mobile_scanner
+  #二维码扫描 https://pub.dev/packages/mobile_scanner
   mobile_scanner: ^7.0.0
-  #https://pub.dev/packages/flutter_svg
+  #svg图片 https://pub.dev/packages/flutter_svg
   flutter_svg: ^2.1.0
-  #https://pub.dev/packages/permission_handler
+  #权限申请 https://pub.dev/packages/permission_handler
   permission_handler: ^12.0.0+1
-  #https://juejin.cn/post/7026150456673959943
+  #dialog弹框 https://juejin.cn/post/7026150456673959943
   flutter_smart_dialog: ^4.9.8+7
-  #https://pub.dev/packages/image_picker
+  #图片选择 https://pub.dev/packages/image_picker
   image_picker: ^1.1.2
-  #https://pub.dev/packages/file_picker
+  #文件选择 https://pub.dev/packages/file_picker
   file_picker: ^10.1.9
-  #https://pub.dev/packages/logger
+  #日志打印 https://pub.dev/packages/logger
   logger: ^2.5.0
-  #https://pub.dev/packages/local_auth
+  #指纹识别 https://pub.dev/packages/local_auth
   local_auth: ^2.3.0
+  #Object数据库 https://pub.dev/packages/objectbox #adb forward tcp:8090 tcp:8090 #http://127.0.0.1:8090
   objectbox: ^4.2.0
   objectbox_flutter_libs: any
   path: ^1.9.1
   path_provider: ^2.1.5
+  #shared_preferences https://pub.dev/packages/shared_preferences
+  shared_preferences: ^2.5.3
+  flutter_native_splash: ^2.4.6
+
 
 
 
@@ -124,4 +129,21 @@ flutter:
   assets:
     - assets/
     - assets/totpIcon/
+
+# flutter_native_splash-development.yaml
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/image/logo.png
+  branding:  assets/image/logo.png
+  color_dark: "#121212"
+  image_dark: assets/image/logo.png
+  branding_dark:  assets/image/logo.png
+
+  android_12:
+    image:  assets/image/logo.png
+    icon_background_color: "#ffffff"
+    image_dark:  assets/image/logo.png
+    icon_background_color_dark: "#121212"
+
+  web: false
 

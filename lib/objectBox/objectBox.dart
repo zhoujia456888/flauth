@@ -3,11 +3,13 @@ import 'package:FlAuth/objectbox.g.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
+import '../main.dart';
+
 class ObjectBox {
 
   late final Store store;
   late final Box<TotpModel> totpModelBox;
-  late final Admin admin;
+
 
 
   ObjectBox._create(this.store) {

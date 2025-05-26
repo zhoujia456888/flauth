@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 
 import '../model/totp_model/totp_model.dart';
@@ -36,13 +35,14 @@ class TotpUrlUtils {
           secret: secret,
           code: '',
           isShow: false,
-          iconPath:null,
+          iconPath: null,
           initialTime: 30,
-          countdownTime: 30, id: null,
+          countdownTime: 30,
+          id: null,
         );
         totpMapList.add(totpModel);
       } else {
-
+        return [];
       }
     }
 

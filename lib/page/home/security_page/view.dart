@@ -30,59 +30,61 @@ class SecurityPage extends StatelessWidget {
         ],
       ),
       body: Obx(
-        () => ListView.custom(
-          childrenDelegate: SliverChildBuilderDelegate((context, index) {
-            Rx<TotpModel> model = logic.codeList[index];
-            return Card(
-              elevation: 0,
-              margin: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(10),
-                onTap: () {
-                  if (model.value.isShow ?? false) {
-                    Clipboard.setData(ClipboardData(text: model.value.code!));
-                    SmartDialog.showToast("安全码已复制到粘贴板");
-                    model(model.value.copyWith(isShow: false));
-                  } else {
-                    model(model.value.copyWith(isShow: true));
-                  }
-                },
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(width: 35, height: 35, child: creatTotpIcon(model)),
-                          SizedBox(width: 10),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [Text(model.value.issuer!), Text(model.value.userName!)],
+        () => RefreshIndicator(
+          onRefresh: () async{
+            await Future.delayed(Duration(seconds: 2), () {
+              logic.getCodeByDb();
+              return Future.value(true);
+            });
+
+          },
+          child: ListView.custom(
+            childrenDelegate: SliverChildBuilderDelegate((context, index) {
+              Rx<TotpModel> model = logic.codeList[index];
+              return Card(
+                elevation: 0,
+                margin: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(10),
+                  onTap: () {
+                    if (model.value.isShow ?? false) {
+                      Clipboard.setData(ClipboardData(text: model.value.code!));
+                      SmartDialog.showToast("安全码已复制到粘贴板");
+                      model(model.value.copyWith(isShow: false));
+                    } else {
+                      model(model.value.copyWith(isShow: true));
+                    }
+                    logic.awaitHideCode(model);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            SizedBox(width: 35, height: 35, child: creatTotpIcon(model)),
+                            SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [Text(model.value.issuer!), Text(model.value.userName!)],
+                              ),
                             ),
-                          ),
-                          Text((model.value.isShow ?? true) ? "${model.value.code}" : "".padLeft((model.value.code ?? "").length, "-")),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: LinearProgressIndicator(value: model.value.countdownTime, borderRadius: BorderRadius.circular(10)),
-                          ),
-                          SizedBox(width: 10),
-                          SizedBox(
-                            width: 20,
-                            child: Text("${((model.value.countdownTime ?? 0) * (model.value.initialTime ?? 0)).toInt()}"),
-                          ),
-                        ],
-                      ),
-                    ],
+                            Text(
+                              logic.handleCode(model.value),
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        LinearProgressIndicator(value: model.value.countdownTime, borderRadius: BorderRadius.circular(10)),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          }, childCount: logic.codeList.length),
+              );
+            }, childCount: logic.codeList.length),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

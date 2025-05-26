@@ -8,6 +8,7 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:steam_totp/steam_totp.dart';
@@ -20,11 +21,31 @@ import '../../../utils/TotpUrlUtils.dart';
 class SecurityLogic extends GetxController with GetTickerProviderStateMixin {
   //安全码列表
   RxList<Rx<TotpModel>> codeList = <Rx<TotpModel>>[].obs;
+  final _isAutoHideCode = false.obs; //是否自动隐藏密码
+  get isAutoHideCode => _isAutoHideCode.value; //
+  set isAutoHideCode(val) => _isAutoHideCode.value = val; //
+
+  @override
+  void onInit() {
+    isAutoHideCode = spUtil.getBool("isAutoHideCode") ?? false;
+    super.onInit();
+  }
 
   @override
   void onReady() {
     getCodeByDb();
     super.onReady();
+  }
+
+  // 处理安全码显示
+  String handleCode(TotpModel totpModel) {
+    int length = totpModel.code?.length ?? 0;
+
+    if (isAutoHideCode && !(totpModel.isShow ?? false)) {
+      return "".padLeft(length, "-");
+    } else {
+      return totpModel.code!;
+    }
   }
 
   //  生成TOTP
@@ -41,6 +62,7 @@ class SecurityLogic extends GetxController with GetTickerProviderStateMixin {
 
   //  从数据库获取TOTP码
   getCodeByDb() async {
+    codeList.clear();
     List<TotpModel> totpMapList = TotpModelBoxUtils().getAllTotp();
     for (var totpModel in totpMapList) {
       Rx<TotpModel> totpModelObs = totpModel.obs;
@@ -92,7 +114,15 @@ class SecurityLogic extends GetxController with GetTickerProviderStateMixin {
   scanCode() async {
     var data = await Get.toNamed(GetPages.scanCodePage);
     if (data != null) {
-      logger.e("dddddddddddddddddddddd+$data");
+      List<TotpModel> totpMapList = TotpUrlUtils.splitTotp(data);
+      if (totpMapList.isEmpty) {
+        SmartDialog.showToast("未识别到安全码内容");
+        return;
+      }
+      TotpModelBoxUtils().addTotpList(totpMapList);
+      getCodeByDb();
+    } else {
+      SmartDialog.showToast("未识别到二维码内容");
     }
   }
 
@@ -110,5 +140,13 @@ class SecurityLogic extends GetxController with GetTickerProviderStateMixin {
       // User canceled the picker
     }
   }
+
+  // 隐藏安全码
+  void awaitHideCode(Rx<TotpModel> model) {
+    Future.delayed(Duration(seconds: 5), () {
+      model(model.value.copyWith(isShow: false));
+    });
+  }
+
 
 }

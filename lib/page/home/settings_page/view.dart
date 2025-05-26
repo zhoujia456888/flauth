@@ -11,18 +11,53 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('设置'),
-      ),
-      body: Center(
+      appBar: AppBar(title: Text('设置')),
+      body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('设置'),
+            ListTile(
+              title: Text("深色模式"),
+              trailing: Obx(
+                () => Switch(
+                  value: logic.isDarkMode,
+                  onChanged: (value) {
+                    logic.changeDarkMode(value);
+                  },
+                ),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text("自动隐藏安全码"),
+              trailing: Obx(
+                () => Switch(
+                  value: logic.isAutoHideCode,
+                  onChanged: (value) {
+                    logic.awaitHideCode(value);
+                  },
+                ),
+              ),
+              onTap: () {},
+            ),
+            Obx(
+              () => logic.canAuthenticate
+                  ? ListTile(
+                      title: Text("生物识别"),
+                      trailing: Obx(
+                        () => Switch(
+                          value: logic.openAuthenticateWithBiometrics,
+                          onChanged: (value) async {
+                            logic.awaitOpenAuthenticateWithBiometrics(value);
+                          },
+                        ),
+                      ),
+                      onTap: () {},
+                    )
+                  : SizedBox(height: 0),
+            ),
           ],
         ),
-      )
+      ),
     );
   }
 }

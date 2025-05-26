@@ -1,5 +1,7 @@
 class Assets {
 
+  static const logo = 'assets/images/logo.png';
+
   static const steam = 'assets/totpIcon/steam.svg';
 
   static const github = 'assets/totpIcon/github.svg';
