@@ -45,12 +45,10 @@ dependencies:
   steam_totp: ^0.0.3
   #二维码扫描 https://pub.dev/packages/mobile_scanner
   mobile_scanner: ^7.0.0
-  #svg图片 https://pub.dev/packages/flutter_svg
-  flutter_svg: ^2.1.0
   #权限申请 https://pub.dev/packages/permission_handler
   permission_handler: ^12.0.0+1
   #dialog弹框 https://juejin.cn/post/7026150456673959943
-  flutter_smart_dialog: ^4.9.8+7
+  flutter_smart_dialog: ^4.9.8+8
   #图片选择 https://pub.dev/packages/image_picker
   image_picker: ^1.1.2
   #文件选择 https://pub.dev/packages/file_picker
@@ -66,8 +64,6 @@ dependencies:
   path_provider: ^2.1.5
   #shared_preferences https://pub.dev/packages/shared_preferences
   shared_preferences: ^2.5.3
-  #启动页 https://pub.dev/packages/flutter_native_splash
-  flutter_native_splash: ^2.4.6
   #搜索searchBar https://pub.dev/packages/app_bar_with_search_switch
   app_bar_with_search_switch: ^1.8.6
 
@@ -133,20 +129,4 @@ flutter:
     - assets/
     - assets/totpIcon/
 
-# flutter_native_splash.yaml
-flutter_native_splash:
-  color: "#ffffff"
-  image: assets/images/logo.png
-  branding:  assets/images/logo.png
-  color_dark: "#121212"
-  image_dark: assets/images/logo.png
-  branding_dark:  assets/images/logo.png
-
-  android_12:
-    image:  assets/images/logo.png
-    icon_background_color: "#ffffff"
-    image_dark:  assets/images/logo.png
-    icon_background_color_dark: "#121212"
-
-  web: false
 

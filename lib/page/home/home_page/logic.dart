@@ -11,7 +11,7 @@ import '../address_page/view.dart';
 import '../password_page/view.dart';
 import '../settings_page/view.dart';
 
-class HomeLogic extends GetxController {
+class HomeLogic extends  FullLifeCycleController with FullLifeCycleMixin {
   final pageList = [SecurityPage(), PasswordPage(), AddressPage(), SettingsPage()];
 
   final _currentIndex = 0.obs; //
@@ -21,6 +21,7 @@ class HomeLogic extends GetxController {
   //  开启生物识别
   bool openAuthenticateWithBiometrics = spUtil.getBool("openAuthenticateWithBiometrics") ?? false;
 
+
   @override
   void onReady() {
     if (openAuthenticateWithBiometrics) {
@@ -28,6 +29,7 @@ class HomeLogic extends GetxController {
     }
     super.onReady();
   }
+
 
   @override
   void onClose() {
@@ -45,5 +47,31 @@ class HomeLogic extends GetxController {
         await SystemChannels.platform.invokeMethod('SystemNavigator.pop');
       }
     });
+  }
+
+  @override
+  void onDetached() {
+    logger.e("onDetached");
+  }
+
+  @override
+  void onHidden() {
+    logger.e("onHidden");
+  }
+
+  @override
+  void onInactive() {
+    logger.e("onInactive");
+  }
+
+  @override
+  void onPaused() {
+    logger.e("onPaused");
+  }
+
+  @override
+  void onResumed() {
+    logger.e("onResumed");
+
   }
 }

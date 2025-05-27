@@ -5,7 +5,6 @@ import 'package:FlAuth/utils/TotpIconUtils.dart';
 import 'package:app_bar_with_search_switch/app_bar_with_search_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import 'logic.dart';
@@ -107,7 +106,7 @@ class SecurityPage extends StatelessWidget {
   Widget creatTotpIcon(Rx<TotpModel> totpModel) {
     String? iconPath = TotpIconUtils.getIconPath(totpModel.value.issuer!);
     if (iconPath != null) {
-      return SvgPicture.asset(iconPath);
+      return Image.asset(iconPath);
     } else if (totpModel.value.iconPath != null) {
       return Image.file(File(totpModel.value.iconPath!));
     } else {

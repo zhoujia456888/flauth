@@ -1,15 +1,12 @@
 import 'dart:io';
 
 import 'package:FlAuth/objectBox/totpModelBoxUtils.dart';
-import 'package:FlAuth/utils/TotpIconUtils.dart';
 import 'package:auth_totp/auth_totp.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:steam_totp/steam_totp.dart';
 
