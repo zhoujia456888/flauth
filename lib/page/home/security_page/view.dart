@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:FlAuth/model/totp_model/totp_model.dart';
 import 'package:FlAuth/utils/TotpIconUtils.dart';
+import 'package:app_bar_with_search_switch/app_bar_with_search_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
-import '../../../main.dart' show logger;
 import 'logic.dart';
 
 class SecurityPage extends StatelessWidget {
@@ -18,30 +18,41 @@ class SecurityPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('安全码'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Get.changeThemeMode(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
-            },
-            icon: Icon(Icons.brightness_4),
-          ),
-        ],
+      appBar: AppBarWithSearchSwitch(
+        fieldHintText: "搜索",
+        onChanged: (text) {
+          logic.searchCode(text);
+        },
+        onCleared: () {
+          logic.cleanSearch();
+        },
+        onClosed: () {
+          logic.cleanSearch();
+        },
+
+        appBarBuilder: (context) {
+          return AppBar(
+            title: Text('安全码'),
+            actions: [
+              AppBarSearchButton(),
+              // or
+              //IconButton(onPressed: AppBarWithSearchSwitch.of(context) != null?startSearch, icon: Icon(Icons.search)),
+            ],
+          );
+        },
       ),
       body: Obx(
         () => RefreshIndicator(
-          onRefresh: () async{
+          onRefresh: () async {
             await Future.delayed(Duration(seconds: 2), () {
               logic.getCodeByDb();
               return Future.value(true);
             });
-
           },
           child: ListView.custom(
             childrenDelegate: SliverChildBuilderDelegate((context, index) {
               Rx<TotpModel> model = logic.codeList[index];
-              return Card(
+              return logic.searchShowIndexList.contains(index)?Card(
                 elevation: 0,
                 margin: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                 child: InkWell(
@@ -70,10 +81,7 @@ class SecurityPage extends StatelessWidget {
                                 children: [Text(model.value.issuer!), Text(model.value.userName!)],
                               ),
                             ),
-                            Text(
-                              logic.handleCode(model.value),
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                            ),
+                            Text(logic.handleCode(model.value), style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
                           ],
                         ),
                         SizedBox(height: 10),
@@ -82,7 +90,7 @@ class SecurityPage extends StatelessWidget {
                     ),
                   ),
                 ),
-              );
+              ):SizedBox();
             }, childCount: logic.codeList.length),
           ),
         ),

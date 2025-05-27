@@ -66,7 +66,10 @@ dependencies:
   path_provider: ^2.1.5
   #shared_preferences https://pub.dev/packages/shared_preferences
   shared_preferences: ^2.5.3
+  #启动页 https://pub.dev/packages/flutter_native_splash
   flutter_native_splash: ^2.4.6
+  #搜索searchBar https://pub.dev/packages/app_bar_with_search_switch
+  app_bar_with_search_switch: ^1.8.6
 
 
 
@@ -130,19 +133,19 @@ flutter:
     - assets/
     - assets/totpIcon/
 
-# flutter_native_splash-development.yaml
+# flutter_native_splash.yaml
 flutter_native_splash:
   color: "#ffffff"
-  image: assets/image/logo.png
-  branding:  assets/image/logo.png
+  image: assets/images/logo.png
+  branding:  assets/images/logo.png
   color_dark: "#121212"
-  image_dark: assets/image/logo.png
-  branding_dark:  assets/image/logo.png
+  image_dark: assets/images/logo.png
+  branding_dark:  assets/images/logo.png
 
   android_12:
-    image:  assets/image/logo.png
+    image:  assets/images/logo.png
     icon_background_color: "#ffffff"
-    image_dark:  assets/image/logo.png
+    image_dark:  assets/images/logo.png
     icon_background_color_dark: "#121212"
 
   web: false

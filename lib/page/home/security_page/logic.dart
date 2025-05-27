@@ -25,6 +25,8 @@ class SecurityLogic extends GetxController with GetTickerProviderStateMixin {
   get isAutoHideCode => _isAutoHideCode.value; //
   set isAutoHideCode(val) => _isAutoHideCode.value = val; //
 
+  final searchShowIndexList = <int>[].obs; //搜索隐藏的索引
+
   @override
   void onInit() {
     isAutoHideCode = spUtil.getBool("isAutoHideCode") ?? false;
@@ -76,6 +78,7 @@ class SecurityLogic extends GetxController with GetTickerProviderStateMixin {
     if (codeList.isNotEmpty) {
       for (int i = 0; i < codeList.length; i++) {
         Rx<TotpModel> totpModel = codeList[i];
+        searchShowIndexList.add(i);
         startCountdown(i, totpModel);
       }
     }
@@ -97,7 +100,11 @@ class SecurityLogic extends GetxController with GetTickerProviderStateMixin {
     animation = Tween<double>(begin: 1.0, end: 0.0).animate(controller)
       ..addListener(() {
         totpModel(totpModel.value.copyWith(countdownTime: animation.value));
-        codeList[index] = totpModel;
+        try {
+          codeList[index] = totpModel;
+        } catch (e) {
+          logger.e(e);
+        }
 
         // 监听动画变化并更新 UI
         if (animation.value <= 0.0) {
@@ -148,5 +155,26 @@ class SecurityLogic extends GetxController with GetTickerProviderStateMixin {
     });
   }
 
+  //搜索安全码
+  void searchCode(String searchText) {
+    searchShowIndexList.clear();
+    searchText = searchText.toLowerCase();
+    if (searchText.isEmpty) {
+      cleanSearch();
+    }
+    for (int i = 0; i < codeList.length; i++) {
+      if (codeList[i].value.issuer!.toLowerCase().contains(searchText) ||
+          codeList[i].value.userName!.toLowerCase().contains(searchText)) {
+        searchShowIndexList.add(i);
+      }
+    }
+  }
 
+  //  清空搜索
+  void cleanSearch() {
+    searchShowIndexList.clear();
+    for (int i = 0; i < codeList.length; i++) {
+      searchShowIndexList.add(i);
+    }
+  }
 }
