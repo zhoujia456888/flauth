@@ -66,6 +66,10 @@ dependencies:
   shared_preferences: ^2.5.3
   #搜索searchBar https://pub.dev/packages/app_bar_with_search_switch
   app_bar_with_search_switch: ^1.8.6
+  #csv转换https://pub.dev/packages/csv
+  csv: ^6.0.0
+  #url_launcher https://pub.dev/packages/url_launcher
+  url_launcher: ^6.3.1
 
 
 

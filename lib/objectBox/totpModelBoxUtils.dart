@@ -1,5 +1,5 @@
 import 'package:FlAuth/main.dart';
-import 'package:FlAuth/model/totp_model/totp_model.dart';
+import 'package:FlAuth/model/totp_model.dart';
 import 'package:FlAuth/objectBox/objectBox.dart';
 
 class TotpModelBoxUtils {

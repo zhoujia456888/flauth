@@ -11,7 +11,7 @@ import '../address_page/view.dart';
 import '../password_page/view.dart';
 import '../settings_page/view.dart';
 
-class HomeLogic extends  FullLifeCycleController with FullLifeCycleMixin {
+class HomeLogic extends  GetxController {
   final pageList = [SecurityPage(), PasswordPage(), AddressPage(), SettingsPage()];
 
   final _currentIndex = 0.obs; //
@@ -47,31 +47,5 @@ class HomeLogic extends  FullLifeCycleController with FullLifeCycleMixin {
         await SystemChannels.platform.invokeMethod('SystemNavigator.pop');
       }
     });
-  }
-
-  @override
-  void onDetached() {
-    logger.e("onDetached");
-  }
-
-  @override
-  void onHidden() {
-    logger.e("onHidden");
-  }
-
-  @override
-  void onInactive() {
-    logger.e("onInactive");
-  }
-
-  @override
-  void onPaused() {
-    logger.e("onPaused");
-  }
-
-  @override
-  void onResumed() {
-    logger.e("onResumed");
-
   }
 }

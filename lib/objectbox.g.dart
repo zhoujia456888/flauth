@@ -14,69 +14,116 @@ import 'package:objectbox/internal.dart'
 import 'package:objectbox/objectbox.dart' as obx;
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
-import 'model/totp_model/totp_model.dart';
+import 'model/password_model.dart';
+import 'model/totp_model.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
 final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
-    id: const obx_int.IdUid(1, 8599485004592482975),
+    id: const obx_int.IdUid(1, 9204818892601247042),
     name: 'TotpModel',
-    lastPropertyId: const obx_int.IdUid(9, 4066727812363617999),
+    lastPropertyId: const obx_int.IdUid(9, 3261423443389642500),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(1, 2777710503610864943),
+        id: const obx_int.IdUid(1, 3690063167725182683),
         name: 'id',
         type: 6,
         flags: 1,
       ),
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(2, 5349102337987176663),
+        id: const obx_int.IdUid(2, 5769243821457969720),
         name: 'issuer',
         type: 9,
         flags: 0,
       ),
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(3, 7489863144662593503),
+        id: const obx_int.IdUid(3, 8225870529813252938),
         name: 'userName',
         type: 9,
         flags: 0,
       ),
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(4, 5892496739034583907),
+        id: const obx_int.IdUid(4, 5204935102804593244),
         name: 'secret',
         type: 9,
         flags: 0,
       ),
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(5, 5881787188643552453),
+        id: const obx_int.IdUid(5, 6976882790237127712),
         name: 'code',
         type: 9,
         flags: 0,
       ),
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(6, 4801064722367049470),
+        id: const obx_int.IdUid(6, 4517061471083371318),
         name: 'isShow',
         type: 1,
         flags: 0,
       ),
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(7, 3337977237369376304),
+        id: const obx_int.IdUid(7, 972511108111383730),
         name: 'iconPath',
         type: 9,
         flags: 0,
       ),
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(8, 5042624379654589406),
+        id: const obx_int.IdUid(8, 1689211252785743620),
         name: 'countdownTime',
         type: 8,
         flags: 0,
       ),
       obx_int.ModelProperty(
-        id: const obx_int.IdUid(9, 4066727812363617999),
+        id: const obx_int.IdUid(9, 3261423443389642500),
         name: 'initialTime',
         type: 8,
+        flags: 0,
+      ),
+    ],
+    relations: <obx_int.ModelRelation>[],
+    backlinks: <obx_int.ModelBacklink>[],
+  ),
+  obx_int.ModelEntity(
+    id: const obx_int.IdUid(2, 3193809485662389233),
+    name: 'PasswordModel',
+    lastPropertyId: const obx_int.IdUid(6, 6930293713525812901),
+    flags: 0,
+    properties: <obx_int.ModelProperty>[
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(1, 8748619518302563592),
+        name: 'id',
+        type: 6,
+        flags: 1,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(2, 1595797731988256348),
+        name: 'title',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(3, 1896896659804933879),
+        name: 'url',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(4, 3534760878925080897),
+        name: 'username',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 7621586462409547514),
+        name: 'password',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(6, 6930293713525812901),
+        name: 'isShow',
+        type: 1,
         flags: 0,
       ),
     ],
@@ -123,7 +170,7 @@ Future<obx.Store> openStore({
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
     entities: _entities,
-    lastEntityId: const obx_int.IdUid(1, 8599485004592482975),
+    lastEntityId: const obx_int.IdUid(2, 3193809485662389233),
     lastIndexId: const obx_int.IdUid(0, 0),
     lastRelationId: const obx_int.IdUid(0, 0),
     lastSequenceId: const obx_int.IdUid(0, 0),
@@ -177,39 +224,120 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectFromFB: (obx.Store store, ByteData fbData) {
         final buffer = fb.BufferContext(fbData);
         final rootOffset = buffer.derefObject(0);
+        final idParam = const fb.Int64Reader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          4,
+        );
+        final issuerParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 6);
+        final userNameParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 8);
+        final secretParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 10);
+        final codeParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 12);
+        final isShowParam = const fb.BoolReader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          14,
+        );
+        final iconPathParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 16);
+        final countdownTimeParam = const fb.Float64Reader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          18,
+        );
+        final initialTimeParam = const fb.Float64Reader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          20,
+        );
+        final object = TotpModel(
+          id: idParam,
+          issuer: issuerParam,
+          userName: userNameParam,
+          secret: secretParam,
+          code: codeParam,
+          isShow: isShowParam,
+          iconPath: iconPathParam,
+          countdownTime: countdownTimeParam,
+          initialTime: initialTimeParam,
+        );
 
-        final object = TotpModel()
-          ..id = const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 4)
-          ..issuer = const fb.StringReader(
-            asciiOptimization: true,
-          ).vTableGetNullable(buffer, rootOffset, 6)
-          ..userName = const fb.StringReader(
-            asciiOptimization: true,
-          ).vTableGetNullable(buffer, rootOffset, 8)
-          ..secret = const fb.StringReader(
-            asciiOptimization: true,
-          ).vTableGetNullable(buffer, rootOffset, 10)
-          ..code = const fb.StringReader(
-            asciiOptimization: true,
-          ).vTableGetNullable(buffer, rootOffset, 12)
-          ..isShow = const fb.BoolReader().vTableGetNullable(
-            buffer,
-            rootOffset,
-            14,
-          )
-          ..iconPath = const fb.StringReader(
-            asciiOptimization: true,
-          ).vTableGetNullable(buffer, rootOffset, 16)
-          ..countdownTime = const fb.Float64Reader().vTableGetNullable(
-            buffer,
-            rootOffset,
-            18,
-          )
-          ..initialTime = const fb.Float64Reader().vTableGetNullable(
-            buffer,
-            rootOffset,
-            20,
-          );
+        return object;
+      },
+    ),
+    PasswordModel: obx_int.EntityDefinition<PasswordModel>(
+      model: _entities[1],
+      toOneRelations: (PasswordModel object) => [],
+      toManyRelations: (PasswordModel object) => {},
+      getId: (PasswordModel object) => object.id,
+      setId: (PasswordModel object, int id) {
+        object.id = id;
+      },
+      objectToFB: (PasswordModel object, fb.Builder fbb) {
+        final titleOffset = object.title == null
+            ? null
+            : fbb.writeString(object.title!);
+        final urlOffset = object.url == null
+            ? null
+            : fbb.writeString(object.url!);
+        final usernameOffset = object.username == null
+            ? null
+            : fbb.writeString(object.username!);
+        final passwordOffset = object.password == null
+            ? null
+            : fbb.writeString(object.password!);
+        fbb.startTable(7);
+        fbb.addInt64(0, object.id ?? 0);
+        fbb.addOffset(1, titleOffset);
+        fbb.addOffset(2, urlOffset);
+        fbb.addOffset(3, usernameOffset);
+        fbb.addOffset(4, passwordOffset);
+        fbb.addBool(5, object.isShow);
+        fbb.finish(fbb.endTable());
+        return object.id ?? 0;
+      },
+      objectFromFB: (obx.Store store, ByteData fbData) {
+        final buffer = fb.BufferContext(fbData);
+        final rootOffset = buffer.derefObject(0);
+        final idParam = const fb.Int64Reader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          4,
+        );
+        final titleParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 6);
+        final urlParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 8);
+        final usernameParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 10);
+        final passwordParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 12);
+        final isShowParam = const fb.BoolReader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          14,
+        );
+        final object = PasswordModel(
+          id: idParam,
+          title: titleParam,
+          url: urlParam,
+          username: usernameParam,
+          password: passwordParam,
+          isShow: isShowParam,
+        );
 
         return object;
       },
@@ -264,5 +392,38 @@ class TotpModel_ {
   /// See [TotpModel.initialTime].
   static final initialTime = obx.QueryDoubleProperty<TotpModel>(
     _entities[0].properties[8],
+  );
+}
+
+/// [PasswordModel] entity fields to define ObjectBox queries.
+class PasswordModel_ {
+  /// See [PasswordModel.id].
+  static final id = obx.QueryIntegerProperty<PasswordModel>(
+    _entities[1].properties[0],
+  );
+
+  /// See [PasswordModel.title].
+  static final title = obx.QueryStringProperty<PasswordModel>(
+    _entities[1].properties[1],
+  );
+
+  /// See [PasswordModel.url].
+  static final url = obx.QueryStringProperty<PasswordModel>(
+    _entities[1].properties[2],
+  );
+
+  /// See [PasswordModel.username].
+  static final username = obx.QueryStringProperty<PasswordModel>(
+    _entities[1].properties[3],
+  );
+
+  /// See [PasswordModel.password].
+  static final password = obx.QueryStringProperty<PasswordModel>(
+    _entities[1].properties[4],
+  );
+
+  /// See [PasswordModel.isShow].
+  static final isShow = obx.QueryBooleanProperty<PasswordModel>(
+    _entities[1].properties[5],
   );
 }

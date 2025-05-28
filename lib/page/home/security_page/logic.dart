@@ -12,12 +12,13 @@ import 'package:steam_totp/steam_totp.dart';
 
 import '../../../config/get_pages.dart';
 import '../../../main.dart';
-import '../../../model/totp_model/totp_model.dart';
+import '../../../model/totp_model.dart';
 import '../../../utils/TotpUrlUtils.dart';
 
 class SecurityLogic extends GetxController with GetTickerProviderStateMixin {
   //安全码列表
   RxList<Rx<TotpModel>> codeList = <Rx<TotpModel>>[].obs;
+
   final _isAutoHideCode = false.obs; //是否自动隐藏密码
   get isAutoHideCode => _isAutoHideCode.value; //
   set isAutoHideCode(val) => _isAutoHideCode.value = val; //
@@ -131,7 +132,7 @@ class SecurityLogic extends GetxController with GetTickerProviderStateMixin {
   }
 
   //文件选择
-  Future<dynamic> filePicker() async {
+ filePicker() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
       File file = File(result.files.single.path!);
@@ -141,7 +142,8 @@ class SecurityLogic extends GetxController with GetTickerProviderStateMixin {
       TotpModelBoxUtils().addTotpList(totpMapList);
       getCodeByDb();
     } else {
-      // User canceled the picker
+      SmartDialog.showToast("未选择任何文件");
+      logger.e("未选择任何文件");
     }
   }
 

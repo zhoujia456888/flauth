@@ -4,61 +4,100 @@
   "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
   "entities": [
     {
-      "id": "1:8599485004592482975",
-      "lastPropertyId": "9:4066727812363617999",
+      "id": "1:9204818892601247042",
+      "lastPropertyId": "9:3261423443389642500",
       "name": "TotpModel",
       "properties": [
         {
-          "id": "1:2777710503610864943",
+          "id": "1:3690063167725182683",
           "name": "id",
           "type": 6,
           "flags": 1
         },
         {
-          "id": "2:5349102337987176663",
+          "id": "2:5769243821457969720",
           "name": "issuer",
           "type": 9
         },
         {
-          "id": "3:7489863144662593503",
+          "id": "3:8225870529813252938",
           "name": "userName",
           "type": 9
         },
         {
-          "id": "4:5892496739034583907",
+          "id": "4:5204935102804593244",
           "name": "secret",
           "type": 9
         },
         {
-          "id": "5:5881787188643552453",
+          "id": "5:6976882790237127712",
           "name": "code",
           "type": 9
         },
         {
-          "id": "6:4801064722367049470",
+          "id": "6:4517061471083371318",
           "name": "isShow",
           "type": 1
         },
         {
-          "id": "7:3337977237369376304",
+          "id": "7:972511108111383730",
           "name": "iconPath",
           "type": 9
         },
         {
-          "id": "8:5042624379654589406",
+          "id": "8:1689211252785743620",
           "name": "countdownTime",
           "type": 8
         },
         {
-          "id": "9:4066727812363617999",
+          "id": "9:3261423443389642500",
           "name": "initialTime",
           "type": 8
         }
       ],
       "relations": []
+    },
+    {
+      "id": "2:3193809485662389233",
+      "lastPropertyId": "6:6930293713525812901",
+      "name": "PasswordModel",
+      "properties": [
+        {
+          "id": "1:8748619518302563592",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1595797731988256348",
+          "name": "title",
+          "type": 9
+        },
+        {
+          "id": "3:1896896659804933879",
+          "name": "url",
+          "type": 9
+        },
+        {
+          "id": "4:3534760878925080897",
+          "name": "username",
+          "type": 9
+        },
+        {
+          "id": "5:7621586462409547514",
+          "name": "password",
+          "type": 9
+        },
+        {
+          "id": "6:6930293713525812901",
+          "name": "isShow",
+          "type": 1
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "1:8599485004592482975",
+  "lastEntityId": "2:3193809485662389233",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

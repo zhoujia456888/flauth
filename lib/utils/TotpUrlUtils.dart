@@ -1,6 +1,7 @@
+import 'package:FlAuth/main.dart';
 import 'package:get/get.dart';
 
-import '../model/totp_model/totp_model.dart';
+import '../model/totp_model.dart';
 
 class TotpUrlUtils {
   /// 生成TOTP URL
@@ -15,6 +16,9 @@ class TotpUrlUtils {
     }
     List<TotpModel> totpMapList = [];
     for (var totpUrl in totpUrlList) {
+      if(totpUrl.isEmpty){
+        continue;
+      }
       if (totpUrl.startsWith("otpauth://totp/")) {
         if (totpUrl.contains("%")) {
           totpUrl = Uri.decodeFull(totpUrl);
@@ -38,14 +42,12 @@ class TotpUrlUtils {
           iconPath: null,
           initialTime: 30,
           countdownTime: 30,
-          id: null,
         );
         totpMapList.add(totpModel);
       } else {
-        return [];
+        logger.e("totpUrl: $totpUrl");
       }
     }
-
     return totpMapList;
   }
 }

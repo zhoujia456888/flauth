@@ -1,20 +1,23 @@
-import 'package:FlAuth/model/totp_model/totp_model.dart';
+import 'package:FlAuth/model/password_model.dart';
+import 'package:FlAuth/model/totp_model.dart';
 import 'package:FlAuth/objectbox.g.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
-import '../main.dart';
+//adb forward tcp:8090 tcp:8090
+//flutter pub run build_runner build
+
 
 class ObjectBox {
 
   late final Store store;
   late final Box<TotpModel> totpModelBox;
-
-
+  late final Box<PasswordModel> passwordModelBox;
 
   ObjectBox._create(this.store) {
     // Add any additional setup code, e.g. build queries.
     totpModelBox = store.box<TotpModel>();
+    passwordModelBox = store.box<PasswordModel>();
 
   }
 
