@@ -146,62 +146,67 @@ class PasswordPage extends StatelessWidget {
     logic.inputUsernameTxtController.text = model.value.username ?? "";
     logic.inputPasswordTxtController.text = model.value.password ?? "";
     SmartDialog.show(
+      onDismiss: () => FocusScope.of(Get.context!).requestFocus(),
       builder: (context) {
-        return Card(
-          elevation: 0,
-          margin: EdgeInsets.symmetric(horizontal: 30),
-          child: Padding(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(isEdit ? "编辑密码" : "添加密码"),
-                SizedBox(height: 10),
-                TextField(
-                  decoration: InputDecoration(labelText: '标题', border: OutlineInputBorder()),
-                  controller: logic.inputTitleTxtController,
-                ),
-                SizedBox(height: 10),
-                TextField(
-                  decoration: InputDecoration(labelText: '地址', border: OutlineInputBorder()),
-                  controller: logic.inputUrlTxtController,
-                  keyboardType: TextInputType.url,
-                ),
-                SizedBox(height: 10),
-                TextField(
-                  decoration: InputDecoration(labelText: '用户名', border: OutlineInputBorder()),
-                  controller: logic.inputUsernameTxtController,
-                ),
-                SizedBox(height: 10),
-                TextField(
-                  decoration: InputDecoration(labelText: '密码', border: OutlineInputBorder()),
-                  controller: logic.inputPasswordTxtController,
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        SmartDialog.dismiss();
-                      },
-                      child: Text("取消"),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        if (isEdit) {
-                          logic.updatePassword(model);
-                        } else {
-                          logic.savePassword();
-                        }
-                      },
-                      child: Text("确定"),
-                    ),
-                  ],
-                ),
-              ],
+        return AnimatedPadding(
+          padding: MediaQuery.of(context).viewInsets,
+          duration: const Duration(milliseconds: 100),
+          child: Card(
+            elevation: 0,
+            margin: EdgeInsets.symmetric(horizontal: 30),
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(isEdit ? "编辑密码" : "添加密码"),
+                  SizedBox(height: 10),
+                  TextField(
+                    decoration: InputDecoration(labelText: '标题', border: OutlineInputBorder()),
+                    controller: logic.inputTitleTxtController,
+                  ),
+                  SizedBox(height: 10),
+                  TextField(
+                    decoration: InputDecoration(labelText: '地址', border: OutlineInputBorder()),
+                    controller: logic.inputUrlTxtController,
+                    keyboardType: TextInputType.url,
+                  ),
+                  SizedBox(height: 10),
+                  TextField(
+                    decoration: InputDecoration(labelText: '用户名', border: OutlineInputBorder()),
+                    controller: logic.inputUsernameTxtController,
+                  ),
+                  SizedBox(height: 10),
+                  TextField(
+                    decoration: InputDecoration(labelText: '密码', border: OutlineInputBorder()),
+                    controller: logic.inputPasswordTxtController,
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          SmartDialog.dismiss();
+                        },
+                        child: Text("取消"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          if (isEdit) {
+                            logic.updatePassword(model);
+                          } else {
+                            logic.savePassword();
+                          }
+                        },
+                        child: Text("确定"),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         );
