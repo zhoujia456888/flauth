@@ -1,9 +1,11 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:FlAuth/model/password_model.dart';
 import 'package:FlAuth/objectBox/passwordModelBoxUtils.dart';
 import 'package:csv/csv.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart' show launchUrl;
@@ -14,6 +16,11 @@ class PasswordLogic extends GetxController {
   RxList<Rx<PasswordModel>> passwordModelList = <Rx<PasswordModel>>[].obs;
 
   final searchShowIndexList = <int>[].obs;
+
+  TextEditingController inputTitleTxtController = TextEditingController();
+  TextEditingController inputUrlTxtController = TextEditingController();
+  TextEditingController inputUsernameTxtController = TextEditingController();
+  TextEditingController inputPasswordTxtController = TextEditingController();
 
   @override
   void onInit() {
@@ -47,16 +54,18 @@ class PasswordLogic extends GetxController {
     searchText = searchText.toLowerCase();
     if (searchText.isEmpty) {
       cleanSearch();
+      return;
     }
+
     for (int i = 0; i < passwordModelList.length; i++) {
       if ((passwordModelList[i].value.title ?? "").toLowerCase().contains(searchText) ||
           (passwordModelList[i].value.url ?? "").toLowerCase().contains(searchText) ||
           (passwordModelList[i].value.username ?? "").toLowerCase().contains(searchText)) {
         searchShowIndexList.add(i);
         searchShowIndexList.refresh();
-        update();
       }
     }
+    passwordModelList.refresh();
   }
 
   //  清空搜索
@@ -64,10 +73,10 @@ class PasswordLogic extends GetxController {
     searchShowIndexList.clear();
     for (int i = 0; i < passwordModelList.length; i++) {
       searchShowIndexList.add(i);
+      searchShowIndexList.refresh();
     }
+    passwordModelList.refresh();
   }
-
-  toInputPassWord() {}
 
   Future<dynamic> filePicker() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -131,6 +140,70 @@ class PasswordLogic extends GetxController {
 
     if (!await launchUrl(Uri.parse(contentText))) {
       throw Exception('Could not launch $contentText');
+    }
+  }
+
+  savePassword() {
+    String inputTitleTxt = inputTitleTxtController.text;
+    String inputUrlTxt = inputUrlTxtController.text;
+    String inputUsernameTxt = inputUsernameTxtController.text;
+    String inputPasswordTxt = inputPasswordTxtController.text;
+    if (inputTitleTxt.isEmpty || inputUrlTxt.isEmpty || inputUsernameTxt.isEmpty || inputPasswordTxt.isEmpty) {
+      SmartDialog.showToast("请填写完整密码信息");
+      return;
+    }
+
+    int putId = PasswordModelBoxUtils().addPassword(
+      PasswordModel(title: inputTitleTxt, url: inputUrlTxt, username: inputUsernameTxt, password: inputPasswordTxt, isShow: false),
+    );
+    if (putId >= 0) {
+      SmartDialog.dismiss();
+      SmartDialog.showToast("保存成功");
+      inputTitleTxtController.clear();
+      inputUrlTxtController.clear();
+      inputUsernameTxtController.clear();
+      inputPasswordTxtController.clear();
+      getPassWordByDb();
+    } else {
+      SmartDialog.showToast("保存失败");
+    }
+  }
+
+  //  删除密码
+  void deletePassword(Rx<PasswordModel> model) {
+    logger.d("删除密码：${model.value.title}");
+    bool isDelete = PasswordModelBoxUtils().deletePassword(model.value);
+    if (isDelete) {
+      SmartDialog.showToast("删除成功");
+      getPassWordByDb();
+    } else {
+      SmartDialog.showToast("删除失败");
+    }
+  }
+
+  //  修改密码
+  void updatePassword(Rx<PasswordModel> model) {
+    String inputTitleTxt = inputTitleTxtController.text;
+    String inputUrlTxt = inputUrlTxtController.text;
+    String inputUsernameTxt = inputUsernameTxtController.text;
+    String inputPasswordTxt = inputPasswordTxtController.text;
+    if (inputTitleTxt.isEmpty || inputUrlTxt.isEmpty || inputUsernameTxt.isEmpty || inputPasswordTxt.isEmpty) {
+      SmartDialog.showToast("请填写完整密码信息");
+      return;
+    }
+
+    model.value = model.value.copyWith(title: inputTitleTxt, url: inputUrlTxt, username: inputUsernameTxt, password: inputPasswordTxt)!;
+    int isUpdate = PasswordModelBoxUtils().updatePassword(model.value);
+    if (isUpdate >= 0) {
+      SmartDialog.dismiss();
+      SmartDialog.showToast("修改成功");
+      inputTitleTxtController.clear();
+      inputUrlTxtController.clear();
+      inputUsernameTxtController.clear();
+      inputPasswordTxtController.clear();
+      getPassWordByDb();
+    } else {
+      SmartDialog.showToast("修改失败");
     }
   }
 }

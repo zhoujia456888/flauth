@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:FlAuth/model/totp_model.dart';
 import 'package:FlAuth/utils/TotpIconUtils.dart';
 import 'package:FlAuth/widget/add_dialog.dart';
+import 'package:FlAuth/widget/delete_dialog.dart';
 import 'package:app_bar_with_search_switch/app_bar_with_search_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -67,6 +68,9 @@ class SecurityPage extends StatelessWidget {
                             model(model.value.copyWith(isShow: true));
                           }
                           logic.awaitHideCode(model);
+                        },
+                        onLongPress: () {
+                          showLongPress(model);
                         },
                         child: Container(
                           padding: EdgeInsets.all(10),
@@ -138,6 +142,47 @@ class SecurityPage extends StatelessWidget {
               },
             ),
           ],
+        );
+      },
+    );
+  }
+
+  //长按
+  void showLongPress( Rx<TotpModel> model) {
+    SmartDialog.show(
+      builder: (context) {
+        return AddDialog(
+          addItemList: [
+            AddDialogItem(
+              title: '删除安全码',
+              icon: Icons.delete,
+              onTapAction: () {
+                SmartDialog.dismiss().then((_) => showDeleteDialog(model));
+              },
+            ),
+            AddDialogItem(
+              title: '编辑安全码',
+              icon: Icons.edit_note,
+              onTapAction: () async {
+                SmartDialog.dismiss();
+                //  SmartDialog.dismiss().then((_) => logic.filePicker());
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  showDeleteDialog(Rx<TotpModel> model) {
+    SmartDialog.show(
+      builder: (context) {
+        return DeleteDialog(
+          dialogTitle: '删除安全码',
+          dialogContent: '确定要删除${model.value.issuer}安全码吗？删除之后没办法恢复哦！',
+          dialogAction: () {
+            SmartDialog.dismiss().then((_) => logic.deleteCode(model));
+          },
         );
       },
     );

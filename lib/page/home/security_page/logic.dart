@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:FlAuth/objectBox/totpModelBoxUtils.dart';
@@ -132,7 +133,7 @@ class SecurityLogic extends GetxController with GetTickerProviderStateMixin {
   }
 
   //文件选择
- filePicker() async {
+  filePicker() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
       File file = File(result.files.single.path!);
@@ -162,8 +163,7 @@ class SecurityLogic extends GetxController with GetTickerProviderStateMixin {
       cleanSearch();
     }
     for (int i = 0; i < codeList.length; i++) {
-      if (codeList[i].value.issuer!.toLowerCase().contains(searchText) ||
-          codeList[i].value.userName!.toLowerCase().contains(searchText)) {
+      if (codeList[i].value.issuer!.toLowerCase().contains(searchText) || codeList[i].value.userName!.toLowerCase().contains(searchText)) {
         searchShowIndexList.add(i);
       }
     }
@@ -174,6 +174,16 @@ class SecurityLogic extends GetxController with GetTickerProviderStateMixin {
     searchShowIndexList.clear();
     for (int i = 0; i < codeList.length; i++) {
       searchShowIndexList.add(i);
+    }
+  }
+
+  FutureOr<dynamic> deleteCode(Rx<TotpModel> model) {
+    bool isDelete = TotpModelBoxUtils().deleteTotp(model.value);
+    if (isDelete) {
+      getCodeByDb();
+      SmartDialog.showToast("删除成功");
+    } else {
+      SmartDialog.showToast("删除失败");
     }
   }
 }

@@ -7,18 +7,20 @@ class PasswordModelBoxUtils {
   }
 
   getAllPassword() {
-    return objectbox.passwordModelBox.getAll();
+    var passwordList = objectbox.passwordModelBox.getAll();
+    passwordList.sort((a, b) => a.title!.compareTo(b.title!));
+    return passwordList;
   }
 
   addPassword(PasswordModel passwordModel) {
-    objectbox.passwordModelBox.put(passwordModel);
+   return objectbox.passwordModelBox.put(passwordModel);
   }
 
   updatePassword(PasswordModel passwordModel) {
-    objectbox.passwordModelBox.put(passwordModel);
+    return objectbox.passwordModelBox.put(passwordModel);
   }
 
   deletePassword(PasswordModel passwordModel) {
-    objectbox.passwordModelBox.remove(passwordModel.id!);
+    return objectbox.passwordModelBox.remove(passwordModel.id!);
   }
 }

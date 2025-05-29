@@ -25,6 +25,6 @@ class TotpModelBoxUtils {
 
   //  删除TOTP
   deleteTotp(TotpModel totpModel) {
-    objectbox.totpModelBox.remove(totpModel.id!);
+    return objectbox.totpModelBox.remove(totpModel.id!);
   }
 }

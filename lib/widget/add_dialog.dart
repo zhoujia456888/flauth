@@ -18,6 +18,7 @@ class AddDialog extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: addItemList.map((item) {
             return InkWell(
+              borderRadius: BorderRadius.circular(10),
               onTap: item.onTapAction,
               child: Container(
                 padding: EdgeInsets.all(10),
