@@ -38,7 +38,7 @@ class PasswordLogic extends GetxController {
     super.onClose();
   }
 
-  getPassWordByDb() {
+  void getPassWordByDb() {
     passwordModelList.clear();
     List<PasswordModel> passwordList = PasswordModelBoxUtils().getAllPassword();
     for (int i = 0; i < passwordList.length; i++) {
@@ -89,7 +89,7 @@ class PasswordLogic extends GetxController {
     }
   }
 
-  converterCsvToJson(File file) async {
+  Future<void> converterCsvToJson(File file) async {
     try {
       // 读取 CSV 文件内容并转换为 List<List<String>>
       final inputStream = file.openRead();
@@ -143,7 +143,7 @@ class PasswordLogic extends GetxController {
     }
   }
 
-  savePassword() {
+  void savePassword() {
     String inputTitleTxt = inputTitleTxtController.text;
     String inputUrlTxt = inputUrlTxtController.text;
     String inputUsernameTxt = inputUsernameTxtController.text;

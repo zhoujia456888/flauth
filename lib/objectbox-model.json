@@ -95,9 +95,53 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "3:4194405384842072034",
+      "lastPropertyId": "8:3484016536537041126",
+      "name": "AddressModel",
+      "properties": [
+        {
+          "id": "1:9044073923837612921",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "3:210066450323233406",
+          "name": "postalCode",
+          "type": 9
+        },
+        {
+          "id": "4:1508025185536675864",
+          "name": "address",
+          "type": 9
+        },
+        {
+          "id": "5:193567719603955634",
+          "name": "username",
+          "type": 9
+        },
+        {
+          "id": "6:6318118710950425539",
+          "name": "tag",
+          "type": 9
+        },
+        {
+          "id": "7:7387854410452878744",
+          "name": "isShow",
+          "type": 1
+        },
+        {
+          "id": "8:3484016536537041126",
+          "name": "phoneNumber",
+          "type": 9
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "2:3193809485662389233",
+  "lastEntityId": "3:4194405384842072034",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
@@ -105,7 +149,9 @@
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    988011290617105160
+  ],
   "retiredRelationUids": [],
   "version": 1
 }

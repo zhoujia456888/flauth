@@ -89,7 +89,7 @@ class PasswordPage extends StatelessWidget {
   }
 
   // 密码项
-  passWordItem(
+  Row passWordItem(
     String titleText,
     String contentText, {
     bool showOpenIcon = false,
@@ -140,7 +140,7 @@ class PasswordPage extends StatelessWidget {
   }
 
   //  手动输入添加
-  showInputOrEditPasswordDialog(bool isEdit, Rx<PasswordModel> model) {
+  void showInputOrEditPasswordDialog(bool isEdit, Rx<PasswordModel> model) {
     logic.inputTitleTxtController.text = model.value.title ?? "";
     logic.inputUrlTxtController.text = model.value.url ?? "";
     logic.inputUsernameTxtController.text = model.value.username ?? "";
@@ -150,7 +150,7 @@ class PasswordPage extends StatelessWidget {
       builder: (context) {
         return AnimatedPadding(
           padding: MediaQuery.of(context).viewInsets,
-          duration: const Duration(milliseconds: 100),
+          duration: const Duration(milliseconds: 200),
           child: Card(
             elevation: 0,
             margin: EdgeInsets.symmetric(horizontal: 30),

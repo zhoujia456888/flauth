@@ -4,27 +4,27 @@ import 'package:FlAuth/objectBox/objectBox.dart';
 
 class TotpModelBoxUtils {
   //  获取所有TOTP
-  getAllTotp() {
+  List<TotpModel> getAllTotp() {
     return objectbox.totpModelBox.getAll();
   }
 
   //  批量添加TOTP
-  addTotpList(List<TotpModel> totpModelList) {
+  void addTotpList(List<TotpModel> totpModelList) {
     objectbox.totpModelBox.putMany(totpModelList);
   }
 
   //  添加TOTP
-  addTotp(TotpModel totpModel) {
+  void addTotp(TotpModel totpModel) {
     objectbox.totpModelBox.put(totpModel);
   }
 
   //  更新TOTP
-  updateTotp(TotpModel totpModel) {
+  void updateTotp(TotpModel totpModel) {
     objectbox.totpModelBox.put(totpModel);
   }
 
   //  删除TOTP
-  deleteTotp(TotpModel totpModel) {
+  bool deleteTotp(TotpModel totpModel) {
     return objectbox.totpModelBox.remove(totpModel.id!);
   }
 }

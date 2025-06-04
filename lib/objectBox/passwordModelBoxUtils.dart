@@ -2,25 +2,25 @@ import 'package:FlAuth/main.dart';
 import 'package:FlAuth/model/password_model.dart';
 
 class PasswordModelBoxUtils {
-  addPasswordList(List<PasswordModel> passwordModelList) {
+  void addPasswordList(List<PasswordModel> passwordModelList) {
     objectbox.passwordModelBox.putMany(passwordModelList);
   }
 
-  getAllPassword() {
+  List<PasswordModel> getAllPassword() {
     var passwordList = objectbox.passwordModelBox.getAll();
     passwordList.sort((a, b) => a.title!.compareTo(b.title!));
     return passwordList;
   }
 
-  addPassword(PasswordModel passwordModel) {
+  int addPassword(PasswordModel passwordModel) {
    return objectbox.passwordModelBox.put(passwordModel);
   }
 
-  updatePassword(PasswordModel passwordModel) {
+  int updatePassword(PasswordModel passwordModel) {
     return objectbox.passwordModelBox.put(passwordModel);
   }
 
-  deletePassword(PasswordModel passwordModel) {
+  bool deletePassword(PasswordModel passwordModel) {
     return objectbox.passwordModelBox.remove(passwordModel.id!);
   }
 }

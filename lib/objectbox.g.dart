@@ -14,6 +14,7 @@ import 'package:objectbox/internal.dart'
 import 'package:objectbox/objectbox.dart' as obx;
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
+import 'model/address_model.dart';
 import 'model/password_model.dart';
 import 'model/totp_model.dart';
 
@@ -130,6 +131,58 @@ final _entities = <obx_int.ModelEntity>[
     relations: <obx_int.ModelRelation>[],
     backlinks: <obx_int.ModelBacklink>[],
   ),
+  obx_int.ModelEntity(
+    id: const obx_int.IdUid(3, 4194405384842072034),
+    name: 'AddressModel',
+    lastPropertyId: const obx_int.IdUid(8, 3484016536537041126),
+    flags: 0,
+    properties: <obx_int.ModelProperty>[
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(1, 9044073923837612921),
+        name: 'id',
+        type: 6,
+        flags: 1,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(3, 210066450323233406),
+        name: 'postalCode',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(4, 1508025185536675864),
+        name: 'address',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 193567719603955634),
+        name: 'username',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(6, 6318118710950425539),
+        name: 'tag',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(7, 7387854410452878744),
+        name: 'isShow',
+        type: 1,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(8, 3484016536537041126),
+        name: 'phoneNumber',
+        type: 9,
+        flags: 0,
+      ),
+    ],
+    relations: <obx_int.ModelRelation>[],
+    backlinks: <obx_int.ModelBacklink>[],
+  ),
 ];
 
 /// Shortcut for [obx.Store.new] that passes [getObjectBoxModel] and for Flutter
@@ -170,13 +223,13 @@ Future<obx.Store> openStore({
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
     entities: _entities,
-    lastEntityId: const obx_int.IdUid(2, 3193809485662389233),
+    lastEntityId: const obx_int.IdUid(3, 4194405384842072034),
     lastIndexId: const obx_int.IdUid(0, 0),
     lastRelationId: const obx_int.IdUid(0, 0),
     lastSequenceId: const obx_int.IdUid(0, 0),
     retiredEntityUids: const [],
     retiredIndexUids: const [],
-    retiredPropertyUids: const [],
+    retiredPropertyUids: const [988011290617105160],
     retiredRelationUids: const [],
     modelVersion: 5,
     modelVersionParserMinimum: 5,
@@ -342,6 +395,76 @@ obx_int.ModelDefinition getObjectBoxModel() {
         return object;
       },
     ),
+    AddressModel: obx_int.EntityDefinition<AddressModel>(
+      model: _entities[2],
+      toOneRelations: (AddressModel object) => [],
+      toManyRelations: (AddressModel object) => {},
+      getId: (AddressModel object) => object.id,
+      setId: (AddressModel object, int id) {
+        object.id = id;
+      },
+      objectToFB: (AddressModel object, fb.Builder fbb) {
+        final postalCodeOffset = object.postalCode == null
+            ? null
+            : fbb.writeString(object.postalCode!);
+        final addressOffset = object.address == null
+            ? null
+            : fbb.writeString(object.address!);
+        final usernameOffset = object.username == null
+            ? null
+            : fbb.writeString(object.username!);
+        final tagOffset = object.tag == null
+            ? null
+            : fbb.writeString(object.tag!);
+        final phoneNumberOffset = object.phoneNumber == null
+            ? null
+            : fbb.writeString(object.phoneNumber!);
+        fbb.startTable(9);
+        fbb.addInt64(0, object.id ?? 0);
+        fbb.addOffset(2, postalCodeOffset);
+        fbb.addOffset(3, addressOffset);
+        fbb.addOffset(4, usernameOffset);
+        fbb.addOffset(5, tagOffset);
+        fbb.addBool(6, object.isShow);
+        fbb.addOffset(7, phoneNumberOffset);
+        fbb.finish(fbb.endTable());
+        return object.id ?? 0;
+      },
+      objectFromFB: (obx.Store store, ByteData fbData) {
+        final buffer = fb.BufferContext(fbData);
+        final rootOffset = buffer.derefObject(0);
+        final postalCodeParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 8);
+        final addressParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 10);
+        final usernameParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 12);
+        final phoneNumberParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 18);
+        final tagParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 14);
+        final isShowParam = const fb.BoolReader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          16,
+        );
+        final object = AddressModel(
+          postalCode: postalCodeParam,
+          address: addressParam,
+          username: usernameParam,
+          phoneNumber: phoneNumberParam,
+          tag: tagParam,
+          isShow: isShowParam,
+        )..id = const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 4);
+
+        return object;
+      },
+    ),
   };
 
   return obx_int.ModelDefinition(model, bindings);
@@ -425,5 +548,43 @@ class PasswordModel_ {
   /// See [PasswordModel.isShow].
   static final isShow = obx.QueryBooleanProperty<PasswordModel>(
     _entities[1].properties[5],
+  );
+}
+
+/// [AddressModel] entity fields to define ObjectBox queries.
+class AddressModel_ {
+  /// See [AddressModel.id].
+  static final id = obx.QueryIntegerProperty<AddressModel>(
+    _entities[2].properties[0],
+  );
+
+  /// See [AddressModel.postalCode].
+  static final postalCode = obx.QueryStringProperty<AddressModel>(
+    _entities[2].properties[1],
+  );
+
+  /// See [AddressModel.address].
+  static final address = obx.QueryStringProperty<AddressModel>(
+    _entities[2].properties[2],
+  );
+
+  /// See [AddressModel.username].
+  static final username = obx.QueryStringProperty<AddressModel>(
+    _entities[2].properties[3],
+  );
+
+  /// See [AddressModel.tag].
+  static final tag = obx.QueryStringProperty<AddressModel>(
+    _entities[2].properties[4],
+  );
+
+  /// See [AddressModel.isShow].
+  static final isShow = obx.QueryBooleanProperty<AddressModel>(
+    _entities[2].properties[5],
+  );
+
+  /// See [AddressModel.phoneNumber].
+  static final phoneNumber = obx.QueryStringProperty<AddressModel>(
+    _entities[2].properties[6],
   );
 }

@@ -1,3 +1,4 @@
+import 'package:FlAuth/model/address_model.dart';
 import 'package:FlAuth/model/password_model.dart';
 import 'package:FlAuth/model/totp_model.dart';
 import 'package:FlAuth/objectbox.g.dart';
@@ -13,11 +14,13 @@ class ObjectBox {
   late final Store store;
   late final Box<TotpModel> totpModelBox;
   late final Box<PasswordModel> passwordModelBox;
+  late final Box<AddressModel> addressModelBox;
 
   ObjectBox._create(this.store) {
     // Add any additional setup code, e.g. build queries.
     totpModelBox = store.box<TotpModel>();
     passwordModelBox = store.box<PasswordModel>();
+    addressModelBox  = store.box<AddressModel>();
 
   }
 

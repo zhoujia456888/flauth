@@ -44,7 +44,7 @@ android {
         }
     }
 
-    val objectboxVersion by extra("4.2.0")
+    val objectboxVersion by extra("4.3.0")
 
     dependencies{
         debugImplementation("io.objectbox:objectbox-android-objectbrowser:$objectboxVersion")
