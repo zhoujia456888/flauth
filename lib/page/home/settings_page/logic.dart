@@ -26,9 +26,9 @@ class SettingsLogic extends GetxController {
 
   @override
   void onInit() async {
-    isDarkMode = spUtil.getBool("isDarkMode") ?? false;
-    isAutoHideCode = spUtil.getBool("isAutoHideCode") ?? false;
-    openAuthenticateWithBiometrics = spUtil.getBool("openAuthenticateWithBiometrics")??false;
+    isDarkMode =  box.read("isDarkMode") ?? false;
+    isAutoHideCode =  box.read("isAutoHideCode") ?? false;
+    openAuthenticateWithBiometrics =  box.read("openAuthenticateWithBiometrics")??false;
 
     final LocalAuthentication auth = LocalAuthentication();
     canAuthenticateWithBiometrics = await auth.canCheckBiometrics;
@@ -50,7 +50,7 @@ class SettingsLogic extends GetxController {
 
   //  自动隐藏
   void awaitHideCode(bool isShow) {
-    spUtil.setBool("isAutoHideCode", isShow);
+    box.write("isAutoHideCode", isShow);
     isAutoHideCode = isShow;
   }
 
@@ -59,7 +59,7 @@ class SettingsLogic extends GetxController {
     AuthenticateWithBiometricsUtils.authenticateWithBiometrics().then((value) {
       if (value) {
         logger.e("验证成功");
-        spUtil.setBool("openAuthenticateWithBiometrics", isOpen);
+        box.write("openAuthenticateWithBiometrics", isOpen);
         openAuthenticateWithBiometrics = isOpen;
       } else {
         logger.e("验证失败");
@@ -69,7 +69,7 @@ class SettingsLogic extends GetxController {
 
   //  切换深色模式
   void changeDarkMode(bool value) {
-    spUtil.setBool("isDarkMode", value);
+    box.write("isDarkMode", value);
     Get.changeThemeMode(isDarkMode ? ThemeMode.light : ThemeMode.dark);
     isDarkMode = value;
   }

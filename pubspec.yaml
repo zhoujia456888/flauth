@@ -62,8 +62,6 @@ dependencies:
   objectbox_flutter_libs: any
   path: ^1.9.1
   path_provider: ^2.1.5
-  #shared_preferences https://pub.dev/packages/shared_preferences
-  shared_preferences: ^2.5.3
   #搜索searchBar https://pub.dev/packages/app_bar_with_search_switch
   app_bar_with_search_switch: ^1.8.6
   #csv转换https://pub.dev/packages/csv

@@ -192,7 +192,13 @@ class PasswordLogic extends GetxController {
       return;
     }
 
-    model.value = model.value.copyWith(title: inputTitleTxt, url: inputUrlTxt, username: inputUsernameTxt, password: inputPasswordTxt)!;
+    model.value = model.value.copyWith(
+      id: model.value.id,
+      title: inputTitleTxt,
+      url: inputUrlTxt,
+      username: inputUsernameTxt,
+      password: inputPasswordTxt,
+    )!;
     int isUpdate = PasswordModelBoxUtils().updatePassword(model.value);
     if (isUpdate >= 0) {
       SmartDialog.dismiss();

@@ -1,11 +1,14 @@
 import 'package:FlAuth/objectbox.g.dart';
 import 'package:FlAuth/page/home/home_page/view.dart';
+import 'package:FlAuth/utils/LifecycleManager.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:logger/logger.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'config/get_pages.dart';
 import 'objectBox/objectBox.dart';
@@ -13,24 +16,28 @@ import 'objectBox/objectBox.dart';
 var logger = Logger(printer: PrettyPrinter());
 late ObjectBox objectbox;
 late Admin admin;
-
-late final SharedPreferences spUtil;
-
-late bool isDarkMode;
+late final GetStorage box;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  spUtil = await SharedPreferences.getInstance();
 
   objectbox = await ObjectBox.create();
 
   if (Admin.isAvailable()) {
     admin = Admin(objectbox.store);
   }
+  await GetStorage.init();
 
-  isDarkMode = spUtil.getBool("isDarkMode") ?? false;
-
+  // 初始化生命周期监听
+  LifecycleManager().init();
   runApp(const MyApp());
+}
+
+class MainController extends GetxController {
+  GetStorage box = GetStorage();
+  bool get isDark => box.read('isDarkMode') ?? false;
+  ThemeData get theme => isDark ? ThemeData.dark() : ThemeData.light();
+  void changeTheme(bool val) => box.write('isDarkMode', val);
 }
 
 class MyApp extends StatelessWidget {
@@ -38,12 +45,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(MainController());
+    box = controller.box;
     return GetMaterialApp(
       title: 'FlAuth',
       home: HomePage(),
       theme: FlexThemeData.light(),
       darkTheme: FlexThemeData.dark(),
-      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.system,
+      themeMode: controller.isDark ? ThemeMode.dark : ThemeMode.system,
       initialRoute: '/',
       getPages: GetPages.routes,
       navigatorObservers: [FlutterSmartDialog.observer],

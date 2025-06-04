@@ -26,15 +26,19 @@ class SecurityLogic extends GetxController with GetTickerProviderStateMixin {
 
   final searchShowIndexList = <int>[].obs; //搜索隐藏的索引
 
+  bool openAuthenticateWithBiometrics =  box.read("openAuthenticateWithBiometrics") ?? false;
+
   @override
   void onInit() {
-    isAutoHideCode = spUtil.getBool("isAutoHideCode") ?? false;
+    isAutoHideCode =  box.read("isAutoHideCode") ?? false;
     super.onInit();
   }
 
   @override
   void onReady() {
-    getCodeByDb();
+    if(!openAuthenticateWithBiometrics){
+      getCodeByDb();
+    }
     super.onReady();
   }
 
@@ -177,6 +181,8 @@ class SecurityLogic extends GetxController with GetTickerProviderStateMixin {
     }
   }
 
+
+  //  删除安全码
   FutureOr<dynamic> deleteCode(Rx<TotpModel> model) {
     bool isDelete = TotpModelBoxUtils().deleteTotp(model.value);
     if (isDelete) {
@@ -186,4 +192,10 @@ class SecurityLogic extends GetxController with GetTickerProviderStateMixin {
       SmartDialog.showToast("删除失败");
     }
   }
+
+  //  隐藏安全码列表
+  void hideCodeListView(){
+    searchShowIndexList.clear();
+  }
+
 }

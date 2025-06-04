@@ -22,9 +22,7 @@ class DeleteDialog extends StatelessWidget {
           children: [
             Text(dialogTitle, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
             SizedBox(height: 10),
-            Text(dialogContent, textAlign: TextAlign.center,
-
-                style: TextStyle(fontSize: 16)),
+            Text(dialogContent, textAlign: TextAlign.start, style: TextStyle(fontSize: 16)),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

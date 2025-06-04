@@ -61,6 +61,14 @@ class AddressPage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondaryContainer,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                                child: Text("${model.value.tag}"),
+                              ),
                               addressItem("邮编", model.value.postalCode ?? ""),
                               addressItem("地址", model.value.address ?? ""),
                               addressItem("用户名", model.value.username ?? ""),
@@ -130,14 +138,14 @@ class AddressPage extends StatelessWidget {
         return AddDialog(
           addItemList: [
             AddDialogItem(
-              title: '删除密码',
+              title: '删除地址',
               icon: Icons.delete,
               onTapAction: () {
                 SmartDialog.dismiss().then((_) => showDeleteDialog(model));
               },
             ),
             AddDialogItem(
-              title: '编辑密码',
+              title: '编辑地址',
               icon: Icons.edit_note,
               onTapAction: () async {
                 SmartDialog.dismiss().then((_) => showInputOrEditAddressDialog(true, model));

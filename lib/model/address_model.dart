@@ -11,7 +11,7 @@ class AddressModel {
   String? tag;
   bool? isShow;
 
-  AddressModel({ this.postalCode, this.address, this.username, this.phoneNumber, this.tag, this.isShow});
+  AddressModel({this.postalCode, this.address, this.username, this.phoneNumber, this.tag, this.isShow, this.id});
 
   AddressModel.fromJson(Map<String, dynamic> json) {
     postalCode = json['postalCode'];
@@ -33,15 +33,9 @@ class AddressModel {
     return data;
   }
 
-  AddressModel copyWith({
-    String? postalCode,
-    String? address,
-    String? username,
-    String? phoneNumber,
-    String? tag,
-    bool? isShow,
-  }) {
+  AddressModel copyWith({String? postalCode, String? address, String? username, String? phoneNumber, String? tag, bool? isShow, int? id}) {
     return AddressModel(
+      id: id ?? this.id,
       postalCode: postalCode ?? this.postalCode,
       address: address ?? this.address,
       username: username ?? this.username,

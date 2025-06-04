@@ -83,6 +83,7 @@ class AddressLogic extends GetxController {
     String tag = tagList.firstWhere((element) => element.value.isSelected).value.tagName;
 
     addressModel.value = addressModel.value.copyWith(
+      id: addressModel.value.id,
       postalCode: postalCode,
       address: address,
       username: username,
@@ -90,6 +91,7 @@ class AddressLogic extends GetxController {
       tag: tag,
     );
     int isUpdate = AddressModelBoxUtils().updateAddress(addressModel.value);
+
     if (isUpdate >= 0) {
       SmartDialog.dismiss();
       SmartDialog.showToast("修改成功");
@@ -98,6 +100,7 @@ class AddressLogic extends GetxController {
       usernameController.clear();
       phoneNumberController.clear();
       resetTagList();
+      getAddressByDb();
     } else {
       SmartDialog.showToast("修改失败");
     }
