@@ -22,8 +22,8 @@ totp扫码和文件添加只能用未加密的数据，没做加密数据解析�
 
 ## 截图
 
-<img src="screenshot/Screenshot_2025-06-05-14-35-12-064_com.jloveh.flauth.jpg" width="300"><img src="screenshot/Screenshot_2025-06-05-14-36-25-444_com.jloveh.flauth.jpg" width="300"><img src="screenshot/Screenshot_2025-06-05-14-36-40-602_com.jloveh.flauth.jpg" width="300"><img src="screenshot/Screenshot_2025-06-05-14-37-15-041_com.jloveh.flauth.jpg" width="300"><img src="screenshot/Screenshot_2025-06-05-14-37-20-833_com.jloveh.flauth.jpg" width="300"><img src="screenshot/Screenshot_2025-06-05-14-37-26-112_com.jloveh.flauth.jpg" width="300"><img src="screenshot/Screenshot_2025-06-05-14-37-29-282_com.jloveh.flauth.jpg" width="300">
+<img src="screenshot/Screenshot_2025-06-05-14-35-12-064_com.jloveh.flauth.jpg" width="200"><img src="screenshot/Screenshot_2025-06-05-14-36-25-444_com.jloveh.flauth.jpg" width="200"><img src="screenshot/Screenshot_2025-06-05-14-36-40-602_com.jloveh.flauth.jpg" width="200"><img src="screenshot/Screenshot_2025-06-05-14-37-15-041_com.jloveh.flauth.jpg" width="200"><img src="screenshot/Screenshot_2025-06-05-14-37-20-833_com.jloveh.flauth.jpg" width="200"><img src="screenshot/Screenshot_2025-06-05-14-37-26-112_com.jloveh.flauth.jpg" width="200"><img src="screenshot/Screenshot_2025-06-05-14-37-29-282_com.jloveh.flauth.jpg" width="200">
 
 ## 黑暗模式
 
-<img src="screenshot/Screenshot_2025-06-05-14-45-10-327_com.jloveh.flauth.jpg" width="300"><img src="screenshot/Screenshot_2025-06-05-14-45-19-226_com.jloveh.flauth.jpg" width="300"><img src="screenshot/Screenshot_2025-06-05-14-45-21-741_com.jloveh.flauth.jpg" width="300"><img src="screenshot/Screenshot_2025-06-05-14-45-26-514_com.jloveh.flauth.jpg" width="300">
+<img src="screenshot/Screenshot_2025-06-05-14-45-10-327_com.jloveh.flauth.jpg" width="200"><img src="screenshot/Screenshot_2025-06-05-14-45-19-226_com.jloveh.flauth.jpg" width="200"><img src="screenshot/Screenshot_2025-06-05-14-45-21-741_com.jloveh.flauth.jpg" width="200"><img src="screenshot/Screenshot_2025-06-05-14-45-26-514_com.jloveh.flauth.jpg" width="200">
