@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:FlAuth/page/home/address_page/logic.dart';
 import 'package:FlAuth/page/home/password_page/logic.dart';
@@ -9,7 +8,6 @@ import 'package:FlAuth/utils/authenticateWithBiometricsUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:local_auth/local_auth.dart';
 
 import '../../../main.dart';
 import '../address_page/view.dart';
