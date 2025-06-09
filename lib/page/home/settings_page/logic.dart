@@ -1,7 +1,10 @@
 import 'package:FlAuth/main.dart';
+import 'package:FlAuth/page/home/home_page/logic.dart';
+import 'package:FlAuth/page/home/security_page/logic.dart';
 import 'package:FlAuth/utils/authenticateWithBiometricsUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:local_auth/local_auth.dart';
 
 class SettingsLogic extends GetxController {
@@ -23,12 +26,14 @@ class SettingsLogic extends GetxController {
   get canAuthenticate => _canAuthenticate.value;
   set canAuthenticate(val) => _canAuthenticate.value = val;
 
+  GetStorage getBox=Get.find<MainController>().box;
+
 
   @override
   void onInit() async {
-    isDarkMode =  box.read("isDarkMode") ?? false;
-    isAutoHideCode =  box.read("isAutoHideCode") ?? false;
-    openAuthenticateWithBiometrics =  box.read("openAuthenticateWithBiometrics")??false;
+    isDarkMode =  getBox.read("isDarkMode") ?? false;
+    isAutoHideCode =  getBox.read("isAutoHideCode") ?? false;
+    openAuthenticateWithBiometrics =  getBox.read("openAuthenticateWithBiometrics")??false;
 
     final LocalAuthentication auth = LocalAuthentication();
     canAuthenticateWithBiometrics = await auth.canCheckBiometrics;
@@ -50,8 +55,12 @@ class SettingsLogic extends GetxController {
 
   //  自动隐藏
   void awaitHideCode(bool isShow) {
-    box.write("isAutoHideCode", isShow);
+    getBox.write("isAutoHideCode", isShow);
     isAutoHideCode = isShow;
+
+    SecurityLogic securityLogic = Get.find<SecurityLogic>();
+    securityLogic.isAutoHideCode  = isShow;
+
   }
 
   //开启生物识别
@@ -59,8 +68,11 @@ class SettingsLogic extends GetxController {
     AuthenticateWithBiometricsUtils.authenticateWithBiometrics().then((value) {
       if (value) {
         logger.e("验证成功");
-        box.write("openAuthenticateWithBiometrics", isOpen);
+        getBox.write("openAuthenticateWithBiometrics", isOpen);
         openAuthenticateWithBiometrics = isOpen;
+        HomeLogic  homeLogic = Get.find<HomeLogic>();
+        homeLogic.openAuthenticateWithBiometrics = isOpen;
+        homeLogic.havePaused = false;
       } else {
         logger.e("验证失败");
       }
@@ -69,7 +81,7 @@ class SettingsLogic extends GetxController {
 
   //  切换深色模式
   void changeDarkMode(bool value) {
-    box.write("isDarkMode", value);
+    getBox.write("isDarkMode", value);
     Get.changeThemeMode(isDarkMode ? ThemeMode.light : ThemeMode.dark);
     isDarkMode = value;
   }

@@ -22,7 +22,7 @@ class HomeLogic extends GetxController {
   set currentIndex(val) => _currentIndex.value = val; //
 
   //  开启生物识别
-  bool openAuthenticateWithBiometrics = box.read("openAuthenticateWithBiometrics") ?? false;
+  bool openAuthenticateWithBiometrics = Get.find<MainController>().box.read("openAuthenticateWithBiometrics") ?? false;
 
   bool havePaused = true;
 

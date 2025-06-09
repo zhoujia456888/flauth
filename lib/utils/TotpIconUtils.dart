@@ -2,7 +2,7 @@ import 'package:FlAuth/assets.dart';
 import 'package:get/get.dart';
 
 class TotpIconUtils {
-  static Map<String, String> issuerMap = {
+  Map<String, String> issuerMap = {
     'microsoft': Assets.microsoft,
     'nvidia': Assets.nvidia,
     'binance.com': Assets.binance,
@@ -30,7 +30,7 @@ class TotpIconUtils {
     'spotify': Assets.spotify,
   };
 
-  static String? getIconPath(String issuer) {
+  String? getIconPath(String issuer) {
     final String normalizedIssuer = issuer.toLowerCase();
 
     // 优先精确匹配

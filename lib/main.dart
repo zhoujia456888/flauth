@@ -16,7 +16,6 @@ import 'objectBox/objectBox.dart';
 var logger = Logger(printer: PrettyPrinter());
 late ObjectBox objectbox;
 late Admin admin;
-late final GetStorage box;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +33,7 @@ Future<void> main() async {
 }
 
 class MainController extends GetxController {
-  GetStorage box = GetStorage();
+  final GetStorage box = GetStorage();
   bool get isDark => box.read('isDarkMode') ?? false;
   ThemeData get theme => isDark ? ThemeData.dark() : ThemeData.light();
   void changeTheme(bool val) => box.write('isDarkMode', val);
@@ -46,7 +45,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(MainController());
-    box = controller.box;
+
     return GetMaterialApp(
       title: 'FlAuth',
       home: HomePage(),

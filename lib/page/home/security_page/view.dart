@@ -111,7 +111,7 @@ class SecurityPage extends StatelessWidget {
   }
 
   Widget creatTotpIcon(Rx<TotpModel> totpModel) {
-    String? iconPath = TotpIconUtils.getIconPath(totpModel.value.issuer!);
+    String? iconPath = TotpIconUtils().getIconPath(totpModel.value.issuer!);
     if (iconPath != null) {
       return Image.asset(iconPath);
     } else if (totpModel.value.iconPath != null) {

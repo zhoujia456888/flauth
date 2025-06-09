@@ -26,11 +26,11 @@ class SecurityLogic extends GetxController with GetTickerProviderStateMixin {
 
   final searchShowIndexList = <int>[].obs; //搜索隐藏的索引
 
-  bool openAuthenticateWithBiometrics =  box.read("openAuthenticateWithBiometrics") ?? false;
+  bool openAuthenticateWithBiometrics =  Get.find<MainController>().box.read("openAuthenticateWithBiometrics") ?? false;
 
   @override
   void onInit() {
-    isAutoHideCode =  box.read("isAutoHideCode") ?? false;
+    isAutoHideCode =  Get.find<MainController>().box.read("isAutoHideCode") ?? false;
     super.onInit();
   }
 
