@@ -44,3 +44,8 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 /devtools_options.yaml
+/ios/Flutter/Release
+/ios/Flutter/Profile
+/ios/Flutter/Debug
+/dist
+

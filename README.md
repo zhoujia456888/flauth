@@ -20,6 +20,24 @@ totp扫码和文件添加只能用未加密的数据，没做加密数据解析�
 
 <img src="assets/images/logo.png" width="100">
 
+## 打包apk
+```
+flutter build apk --target-platform android-arm64 --split-per-abi
+```
+or
+
+前提是安装了[FastForge](https://github.com/fastforgedev/fastforge)
+```
+fastforge package --platform=android --targets=apk
+```
+
+## 打包上传到GitHub Releases
+前提是安装了[FastForge](https://github.com/fastforgedev/fastforge)
+
+```
+fastforge release --name release
+```
+
 ## 截图
 
 <img src="screenshot/Screenshot_2025-06-05-14-35-12-064_com.jloveh.flauth.jpg" width="270"><img src="screenshot/Screenshot_2025-06-05-14-36-25-444_com.jloveh.flauth.jpg" width="270"><img src="screenshot/Screenshot_2025-06-05-14-36-40-602_com.jloveh.flauth.jpg" width="270"><img src="screenshot/Screenshot_2025-06-05-14-37-15-041_com.jloveh.flauth.jpg" width="270"><img src="screenshot/Screenshot_2025-06-05-14-37-20-833_com.jloveh.flauth.jpg" width="270"><img src="screenshot/Screenshot_2025-06-05-14-37-26-112_com.jloveh.flauth.jpg" width="270"><img src="screenshot/Screenshot_2025-06-05-14-37-29-282_com.jloveh.flauth.jpg" width="270">

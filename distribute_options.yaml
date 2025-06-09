@@ -1,0 +1,21 @@
+variables:
+  GITHUB_TOKEN: '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'
+output: dist/
+artifact_name: "{{name}}-{{version}}-{{platform}}{{#channel}}-{{channel}}{{/channel}}.{{ext}}"
+releases:
+  - name: release
+    jobs:
+      - name: arm64
+        package:
+          platform: android
+          channel: arm64-v8a
+          target: apk
+          build_args:
+            target-platform: android-arm64
+            split-per-abi:
+        # Publish to github
+        publish:
+          target: github
+          args:
+            repo-owner: zhoujia456888
+            repo-name: flauth
