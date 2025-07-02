@@ -44,7 +44,7 @@ dependencies:
   #https://pub.dev/packages/steam_totp
   steam_totp: ^0.0.3
   #二维码扫描 https://pub.dev/packages/mobile_scanner
-  mobile_scanner: ^7.0.0
+  mobile_scanner: ^7.0.1
   #权限申请 https://pub.dev/packages/permission_handler
   permission_handler: ^12.0.0+1
   #dialog弹框 https://juejin.cn/post/7026150456673959943
@@ -52,9 +52,9 @@ dependencies:
   #图片选择 https://pub.dev/packages/image_picker
   image_picker: ^1.1.2
   #文件选择 https://pub.dev/packages/file_picker
-  file_picker: ^10.1.9
+  file_picker: ^10.2.0
   #日志打印 https://pub.dev/packages/logger
-  logger: ^2.5.0
+  logger: ^2.6.0
   #指纹识别 https://pub.dev/packages/local_auth
   local_auth: ^2.3.0
   #Object数据库 https://pub.dev/packages/objectbox #adb forward tcp:8090 tcp:8090 #http://127.0.0.1:8090

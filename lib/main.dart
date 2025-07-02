@@ -55,7 +55,6 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       getPages: GetPages.routes,
       navigatorObservers: [FlutterSmartDialog.observer],
-      // here
       builder: FlutterSmartDialog.init(),
     );
   }
