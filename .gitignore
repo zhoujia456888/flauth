@@ -49,3 +49,4 @@ app.*.map.json
 /ios/Flutter/Debug
 /dist
 
+/android/build/
